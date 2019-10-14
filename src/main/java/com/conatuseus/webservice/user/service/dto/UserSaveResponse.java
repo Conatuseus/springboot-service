@@ -1,4 +1,4 @@
 package com.conatuseus.webservice.user.service.dto;
 
-public class UserSaveResponseDto {
+public class UserSaveResponse {
 }

@@ -14,15 +14,15 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 
 
-public class UserSaveRequestDtoTest {
+public class UserSaveRequestTest {
 
-    private UserSaveRequestDto user;
+    private UserSaveRequest user;
     private ValidatorFactory factory;
     private Validator validator;
 
     @BeforeEach
     void setUp() {
-        user = new UserSaveRequestDto();
+        user = new UserSaveRequest();
         user.setEmail("conatuseus@gmail.com");
         user.setName("conatuseus");
         user.setPassword("conas");
@@ -119,7 +119,7 @@ public class UserSaveRequestDtoTest {
     }
 
     private void checkUserValidateMessage(String message) {
-        Set<ConstraintViolation<UserSaveRequestDto>> constraintViolations = validator.validate(user);
+        Set<ConstraintViolation<UserSaveRequest>> constraintViolations = validator.validate(user);
         assertThat(constraintViolations)
             .extracting(ConstraintViolation::getMessage)
             .contains(message);

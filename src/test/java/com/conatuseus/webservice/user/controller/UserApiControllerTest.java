@@ -1,6 +1,6 @@
 package com.conatuseus.webservice.user.controller;
 
-import com.conatuseus.webservice.user.service.dto.UserSaveRequestDto;
+import com.conatuseus.webservice.user.service.dto.UserSaveRequest;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,12 +19,18 @@ public class UserApiControllerTest {
     private WebTestClient webTestClient;
 
     @Test
-    public void createUser() {
-        UserSaveRequestDto userSaveRequestDto = new UserSaveRequestDto("conatuseus@gmail.com", "1234", "conas", "01099996384");
+    void saveUser() {
+        UserSaveRequest userSaveRequest = new UserSaveRequest("conatuseus@gmail.com", "1234", "conas", "01099996384");
         webTestClient.post()
             .uri("/api/users")
-            .body(Mono.just(userSaveRequestDto), UserSaveRequestDto.class)
+            .body(Mono.just(userSaveRequest), UserSaveRequest.class)
             .exchange()
             .expectStatus().isCreated();
     }
+
+    @Test
+    void updateUser() {
+
+    }
+
 }

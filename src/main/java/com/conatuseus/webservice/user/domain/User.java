@@ -1,5 +1,6 @@
 package com.conatuseus.webservice.user.domain;
 
+import com.conatuseus.webservice.user.service.dto.UserUpdateRequest;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -37,5 +38,11 @@ public class User {
         this.password = password;
         this.name = name;
         this.phoneNumber = phoneNumber;
+    }
+
+    public User update(final UserUpdateRequest userUpdateRequest) {
+        this.password = userUpdateRequest.getPassword();
+        this.phoneNumber = userUpdateRequest.getPhoneNumber();
+        return this;
     }
 }

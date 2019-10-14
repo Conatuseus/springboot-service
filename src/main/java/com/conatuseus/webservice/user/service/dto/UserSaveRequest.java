@@ -14,7 +14,7 @@ import javax.validation.constraints.Pattern;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class UserSaveRequestDto {
+public class UserSaveRequest {
 
     @NotBlank(message = "이메일을 입력해 주세요.")
     @Email(message = "이메일 양식을 지켜주세요.")
