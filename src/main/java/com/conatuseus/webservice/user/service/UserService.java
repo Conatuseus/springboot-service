@@ -3,6 +3,7 @@ package com.conatuseus.webservice.user.service;
 import com.conatuseus.webservice.user.domain.User;
 import com.conatuseus.webservice.user.domain.UserConverter;
 import com.conatuseus.webservice.user.domain.UserRepository;
+import com.conatuseus.webservice.user.service.dto.UserReadResponse;
 import com.conatuseus.webservice.user.service.dto.UserSaveRequest;
 import com.conatuseus.webservice.user.service.dto.UserSaveResponse;
 import com.conatuseus.webservice.user.service.dto.UserUpdateRequest;
@@ -32,5 +33,11 @@ public class UserService {
             .orElseThrow(UserNotFoundException::new);
         user.update(userUpdateRequest);
         return UserConverter.toUpdateResponse(user);
+    }
+
+    public UserReadResponse readUser(final Long id) {
+        User user = userRepository.findById(id)
+            .orElseThrow(UserNotFoundException::new);
+        return UserConverter.toUserReadResponse(user);
     }
 }

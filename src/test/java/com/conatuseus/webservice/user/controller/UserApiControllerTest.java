@@ -1,5 +1,6 @@
 package com.conatuseus.webservice.user.controller;
 
+import com.conatuseus.webservice.user.service.dto.UserReadResponse;
 import com.conatuseus.webservice.user.service.dto.UserSaveRequest;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -19,7 +20,22 @@ public class UserApiControllerTest {
     private WebTestClient webTestClient;
 
     @Test
-    void saveUser() {
+    public void readUser() {
+        UserSaveRequest userSaveRequest = new UserSaveRequest("conatuseus@gmail.com", "1234", "conas", "01099996384");
+        webTestClient.post()
+            .uri("/api/users")
+            .body(Mono.just(userSaveRequest), UserSaveRequest.class)
+            .exchange();
+
+        UserReadResponse userReadResponse = new UserReadResponse("conatuseus@gmail.com", "1234", "conas", "01099996384");
+        webTestClient.get()
+            .uri("/api/users/1")
+            .exchange()
+            .expectStatus().isOk();
+    }
+
+    @Test
+    public void saveUser() {
         UserSaveRequest userSaveRequest = new UserSaveRequest("conatuseus@gmail.com", "1234", "conas", "01099996384");
         webTestClient.post()
             .uri("/api/users")
@@ -29,7 +45,7 @@ public class UserApiControllerTest {
     }
 
     @Test
-    void updateUser() {
+    public void updateUser() {
 
     }
 

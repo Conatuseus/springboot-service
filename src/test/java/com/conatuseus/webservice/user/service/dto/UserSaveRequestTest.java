@@ -64,7 +64,7 @@ public class UserSaveRequestTest {
 
     @Test
     void setName() {
-        assertDoesNotThrow(()->user.setName("coonas"));
+        assertDoesNotThrow(() -> user.setName("coonas"));
     }
 
     @Test
@@ -75,7 +75,7 @@ public class UserSaveRequestTest {
 
     @Test
     void setPhoneNumber() {
-        assertDoesNotThrow(()->user.setPhoneNumber("01099996383"));
+        assertDoesNotThrow(() -> user.setPhoneNumber("01099996383"));
     }
 
     @Test

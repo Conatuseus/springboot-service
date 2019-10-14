@@ -1,10 +1,12 @@
 package com.conatuseus.webservice.user.controller;
 
 import com.conatuseus.webservice.user.service.UserService;
+import com.conatuseus.webservice.user.service.dto.UserReadResponse;
 import com.conatuseus.webservice.user.service.dto.UserSaveRequest;
 import com.conatuseus.webservice.user.service.dto.UserUpdateRequest;
 import com.conatuseus.webservice.user.service.dto.UserUpdateResponse;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -23,6 +25,12 @@ public class UserApiController {
 
     public UserApiController(final UserService userService) {
         this.userService = userService;
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<UserReadResponse> readUser(@PathVariable Long id) {
+        UserReadResponse userReadResponse = userService.readUser(id);
+        return ResponseEntity.ok(userReadResponse);
     }
 
     @PostMapping
