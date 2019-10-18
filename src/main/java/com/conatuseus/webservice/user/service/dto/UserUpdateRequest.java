@@ -1,6 +1,5 @@
 package com.conatuseus.webservice.user.service.dto;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -13,7 +12,6 @@ import javax.validation.constraints.Pattern;
 @Setter
 @Getter
 @NoArgsConstructor
-@AllArgsConstructor
 public class UserUpdateRequest {
 
     @NotBlank(message = "이메일을 입력해 주세요.")
