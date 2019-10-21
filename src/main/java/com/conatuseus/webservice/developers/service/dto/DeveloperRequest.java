@@ -1,5 +1,7 @@
 package com.conatuseus.webservice.developers.service.dto;
 
+import com.conatuseus.webservice.developers.domain.Developer;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -21,4 +23,23 @@ public class DeveloperRequest {
     private String keyboard;
 
     private String mouse;
+
+    @Builder
+    public DeveloperRequest(final String name, final String notebook, final String monitor, final String keyboard, final String mouse) {
+        this.name = name;
+        this.notebook = notebook;
+        this.monitor = monitor;
+        this.keyboard = keyboard;
+        this.mouse = mouse;
+    }
+
+    public Developer toEntity() {
+        return Developer.builder()
+            .name(name)
+            .notebook(notebook)
+            .monitor(monitor)
+            .keyboard(keyboard)
+            .mouse(mouse)
+            .build();
+    }
 }

@@ -21,17 +21,17 @@ public class UserApiControllerTest {
 
     @Test
     public void readUser() {
-        UserSaveRequest userSaveRequest = new UserSaveRequest("conatuseus@gmail.com", "1234", "conas", "01099996384");
-        webTestClient.post()
-            .uri("/api/users")
-            .body(Mono.just(userSaveRequest), UserSaveRequest.class)
-            .exchange();
 
-        UserReadResponse userReadResponse = new UserReadResponse("conatuseus@gmail.com", "1234", "conas", "01099996384");
+        UserReadResponse userReadResponse = new UserReadResponse("testEmail@gmail.com", "testPassword", "testName", "01099996384");
         webTestClient.get()
             .uri("/api/users/1")
             .exchange()
-            .expectStatus().isOk();
+            .expectStatus().isOk()
+            .expectBody()
+            .jsonPath("$.email").isEqualTo("testEmail@gmail.com")
+            .jsonPath("$.name").isEqualTo("testName")
+            .jsonPath("$.password").isEqualTo("testPassword")
+            .jsonPath("$.phoneNumber").isEqualTo("01099996384");
     }
 
     @Test

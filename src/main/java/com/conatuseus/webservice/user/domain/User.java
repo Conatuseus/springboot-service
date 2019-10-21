@@ -30,7 +30,7 @@ public class User {
     @Column(nullable = false)
     private String name;
 
-    @Column(nullable = false)
+    @Column(name = "PHONE_NUMBER", nullable = false)
     private String phoneNumber;
 
     public User(final String email, final String password, final String name, final String phoneNumber) {
