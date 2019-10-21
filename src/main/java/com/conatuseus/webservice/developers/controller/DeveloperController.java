@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -38,5 +39,11 @@ public class DeveloperController {
     public ResponseEntity saveDeveloper(@RequestBody @Valid DeveloperRequest developerRequest) {
         developerService.saveDeveloper(developerRequest);
         return ResponseEntity.created(URI.create("/developers")).build();
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<DeveloperResponse> updateDeveloper(@PathVariable Long id, @RequestBody @Valid DeveloperRequest developerRequest) {
+        DeveloperResponse developerResponse = developerService.update(id, developerRequest);
+        return ResponseEntity.ok(developerResponse);
     }
 }

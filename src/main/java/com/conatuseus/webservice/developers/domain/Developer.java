@@ -1,5 +1,7 @@
 package com.conatuseus.webservice.developers.domain;
 
+import com.conatuseus.webservice.developers.service.dto.DeveloperRequest;
+import com.conatuseus.webservice.developers.service.dto.DeveloperResponse;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -43,5 +45,23 @@ public class Developer {
         this.monitor = monitor;
         this.keyboard = keyboard;
         this.mouse = mouse;
+    }
+
+    public void update(final DeveloperRequest developerRequest) {
+        this.name = developerRequest.getName();
+        this.notebook = developerRequest.getNotebook();
+        this.monitor = developerRequest.getNotebook();
+        this.keyboard = developerRequest.getKeyboard();
+        this.mouse = developerRequest.getMouse();
+    }
+
+    public DeveloperResponse toResponse() {
+        return DeveloperResponse.builder()
+            .name(name)
+            .notebook(notebook)
+            .monitor(monitor)
+            .keyboard(keyboard)
+            .mouse(mouse)
+            .build();
     }
 }

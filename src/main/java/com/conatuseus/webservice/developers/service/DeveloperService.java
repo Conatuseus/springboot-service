@@ -29,4 +29,12 @@ public class DeveloperService {
     public void saveDeveloper(final DeveloperRequest developerRequest) {
         developerRepository.save(developerRequest.toEntity());
     }
+
+    public DeveloperResponse update(final Long id, final DeveloperRequest developerRequest) {
+        Developer developer = developerRepository.findById(id)
+            .orElseThrow(DeveloperNotFoundException::new);
+
+        developer.update(developerRequest);
+        return developer.toResponse();
+    }
 }

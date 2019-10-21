@@ -2,6 +2,7 @@ package com.conatuseus.webservice.developers.controller;
 
 import com.conatuseus.webservice.developers.service.dto.DeveloperRequest;
 import org.junit.Test;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.reactive.AutoConfigureWebTestClient;
@@ -39,5 +40,23 @@ public class DeveloperControllerTest {
             .body(Mono.just(requestDto), DeveloperRequest.class)
             .exchange()
             .expectStatus().isCreated();
+    }
+
+    @Test
+    @DisplayName("개발자 정보 변경")
+    public void updateDeveloper() {
+        DeveloperRequest requestDto = DeveloperRequest.builder()
+            .name("conatuseus")
+            .keyboard("PD-KB600B")
+            .build();
+
+        webTestClient.put()
+            .uri("/api/developers/2")
+            .body(Mono.just(requestDto),DeveloperRequest.class)
+            .exchange()
+            .expectStatus().isOk()
+            .expectBody()
+            .jsonPath("$.name").isEqualTo("conatuseus")
+            .jsonPath("$.keyboard").isEqualTo("PD-KB600B");
     }
 }
