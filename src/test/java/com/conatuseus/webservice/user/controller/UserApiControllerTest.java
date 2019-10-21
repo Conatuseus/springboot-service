@@ -2,6 +2,7 @@ package com.conatuseus.webservice.user.controller;
 
 import com.conatuseus.webservice.user.service.dto.UserReadResponse;
 import com.conatuseus.webservice.user.service.dto.UserSaveRequest;
+import com.conatuseus.webservice.user.service.dto.UserUpdateRequest;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,7 +23,6 @@ public class UserApiControllerTest {
     @Test
     public void readUser() {
 
-        UserReadResponse userReadResponse = new UserReadResponse("testEmail@gmail.com", "testPassword", "testName", "01099996384");
         webTestClient.get()
             .uri("/api/users/1")
             .exchange()
@@ -46,7 +46,21 @@ public class UserApiControllerTest {
 
     @Test
     public void updateUser() {
+        UserUpdateRequest userUpdateRequest = new UserUpdateRequest();
+        userUpdateRequest.setEmail("updateTestEmail@gmail.com");
+        userUpdateRequest.setName("testName");
+        userUpdateRequest.setPassword("changedPassword");
+        userUpdateRequest.setPhoneNumber("01099996384");
 
+        webTestClient.put()
+            .uri("/api/users/2")
+            .body(Mono.just(userUpdateRequest),UserUpdateRequest.class)
+            .exchange()
+            .expectStatus().isOk()
+            .expectBody()
+            .jsonPath("$.email").isEqualTo("updateTestEmail@gmail.com")
+            .jsonPath("$.name").isEqualTo("testName")
+            .jsonPath("$.password").isEqualTo("changedPassword");
     }
 
 }
