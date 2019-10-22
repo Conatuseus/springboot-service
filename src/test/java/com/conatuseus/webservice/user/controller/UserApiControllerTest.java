@@ -1,6 +1,5 @@
 package com.conatuseus.webservice.user.controller;
 
-import com.conatuseus.webservice.user.service.dto.UserReadResponse;
 import com.conatuseus.webservice.user.service.dto.UserSaveRequest;
 import com.conatuseus.webservice.user.service.dto.UserUpdateRequest;
 import org.junit.Test;
@@ -54,7 +53,7 @@ public class UserApiControllerTest {
 
         webTestClient.put()
             .uri("/api/users/2")
-            .body(Mono.just(userUpdateRequest),UserUpdateRequest.class)
+            .body(Mono.just(userUpdateRequest), UserUpdateRequest.class)
             .exchange()
             .expectStatus().isOk()
             .expectBody()

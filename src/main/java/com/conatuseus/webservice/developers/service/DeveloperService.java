@@ -30,11 +30,17 @@ public class DeveloperService {
         developerRepository.save(developerRequest.toEntity());
     }
 
+    @Transactional
     public DeveloperResponse update(final Long id, final DeveloperRequest developerRequest) {
         Developer developer = developerRepository.findById(id)
             .orElseThrow(DeveloperNotFoundException::new);
 
         developer.update(developerRequest);
         return developer.toResponse();
+    }
+
+    @Transactional
+    public void delete(final Long id) {
+        developerRepository.deleteById(id);
     }
 }

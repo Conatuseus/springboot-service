@@ -32,6 +32,15 @@ public class DeveloperControllerTest {
     }
 
     @Test
+    @DisplayName("유효하지 않는 developer 검색")
+    public void find_invalid_developer() {
+        webTestClient.get()
+            .uri("/api/developers/987654321")
+            .exchange()
+            .expectStatus().isNotFound();
+    }
+
+    @Test
     public void saveDeveloper() {
         DeveloperRequest requestDto = new DeveloperRequest();
         requestDto.setName("conatuseus");
@@ -40,6 +49,17 @@ public class DeveloperControllerTest {
             .body(Mono.just(requestDto), DeveloperRequest.class)
             .exchange()
             .expectStatus().isCreated();
+    }
+
+    @Test
+    @DisplayName("이름이 없는 developer 저장 검사")
+    public void save_none_name_Developer() {
+        DeveloperRequest requestDto = new DeveloperRequest();
+        webTestClient.post()
+            .uri("/api/developers")
+            .body(Mono.just(requestDto), DeveloperRequest.class)
+            .exchange()
+            .expectStatus().isBadRequest();
     }
 
     @Test
@@ -52,11 +72,50 @@ public class DeveloperControllerTest {
 
         webTestClient.put()
             .uri("/api/developers/2")
-            .body(Mono.just(requestDto),DeveloperRequest.class)
+            .body(Mono.just(requestDto), DeveloperRequest.class)
             .exchange()
             .expectStatus().isOk()
             .expectBody()
             .jsonPath("$.name").isEqualTo("conatuseus")
             .jsonPath("$.keyboard").isEqualTo("PD-KB600B");
     }
+
+    @Test
+    @DisplayName("유효하지 않은 개발자 정보 변경")
+    public void update_invalid_developer() {
+        DeveloperRequest requestDto = DeveloperRequest.builder()
+            .name("conatuseus")
+            .keyboard("PD-KB600B")
+            .build();
+
+        webTestClient.put()
+            .uri("/api/developers/987654321")
+            .body(Mono.just(requestDto), DeveloperRequest.class)
+            .exchange()
+            .expectStatus().isNotFound();
+    }
+
+    @Test
+    @DisplayName("developer 잘 삭제되는 경우")
+    public void deleteDeveloper() {
+        webTestClient.delete()
+            .uri("/api/developers/3")
+            .exchange()
+            .expectStatus().isOk();
+
+        webTestClient.get()
+            .uri("/api/developers/3")
+            .exchange()
+            .expectStatus().isNotFound();
+    }
+
+    @Test
+    @DisplayName("유효하지 않는 Developer 삭제 요청")
+    public void delete_invalid_Developer() {
+        webTestClient.delete()
+            .uri("/api/developer/987654321")
+            .exchange()
+            .expectStatus().isNotFound();
+    }
+
 }

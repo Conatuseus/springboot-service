@@ -6,6 +6,7 @@ import com.conatuseus.webservice.developers.service.dto.DeveloperResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -38,6 +39,8 @@ public class DeveloperController {
     @PostMapping
     public ResponseEntity saveDeveloper(@RequestBody @Valid DeveloperRequest developerRequest) {
         developerService.saveDeveloper(developerRequest);
+
+
         return ResponseEntity.created(URI.create("/developers")).build();
     }
 
@@ -45,5 +48,11 @@ public class DeveloperController {
     public ResponseEntity<DeveloperResponse> updateDeveloper(@PathVariable Long id, @RequestBody @Valid DeveloperRequest developerRequest) {
         DeveloperResponse developerResponse = developerService.update(id, developerRequest);
         return ResponseEntity.ok(developerResponse);
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity deleteDeveloper(@PathVariable Long id) {
+        developerService.delete(id);
+        return ResponseEntity.ok().build();
     }
 }
