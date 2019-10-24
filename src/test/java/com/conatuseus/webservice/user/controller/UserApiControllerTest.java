@@ -3,6 +3,7 @@ package com.conatuseus.webservice.user.controller;
 import com.conatuseus.webservice.user.service.dto.UserSaveRequest;
 import com.conatuseus.webservice.user.service.dto.UserUpdateRequest;
 import org.junit.Test;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.reactive.AutoConfigureWebTestClient;
@@ -21,7 +22,6 @@ public class UserApiControllerTest {
 
     @Test
     public void readUser() {
-
         webTestClient.get()
             .uri("/api/users/1")
             .exchange()
@@ -60,6 +60,28 @@ public class UserApiControllerTest {
             .jsonPath("$.email").isEqualTo("updateTestEmail@gmail.com")
             .jsonPath("$.name").isEqualTo("testName")
             .jsonPath("$.password").isEqualTo("changedPassword");
+    }
+
+    @Test
+    public void deleteUser() {
+        webTestClient.delete()
+            .uri("/api/users/3")
+            .exchange()
+            .expectStatus().isOk();
+
+        webTestClient.get()
+            .uri("/api/users/3")
+            .exchange()
+            .expectStatus().isNotFound();
+    }
+
+    @Test
+    @DisplayName("유효하지 않은 User 삭제")
+    public void delete_invalid_user() {
+        webTestClient.delete()
+            .uri("/api/users/987654321")
+            .exchange()
+            .expectStatus().isNotFound();
     }
 
 }

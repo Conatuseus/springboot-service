@@ -40,7 +40,6 @@ public class DeveloperController {
     public ResponseEntity saveDeveloper(@RequestBody @Valid DeveloperRequest developerRequest) {
         developerService.saveDeveloper(developerRequest);
 
-
         return ResponseEntity.created(URI.create("/developers")).build();
     }
 

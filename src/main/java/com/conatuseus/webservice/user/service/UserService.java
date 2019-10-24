@@ -40,4 +40,16 @@ public class UserService {
             .orElseThrow(UserNotFoundException::new);
         return UserConverter.toUserReadResponse(user);
     }
+
+    @Transactional
+    public void deleteById(final Long id) {
+        if (isUserNotExist(id)) {
+            throw new UserNotFoundException();
+        }
+        userRepository.deleteById(id);
+    }
+
+    private boolean isUserNotExist(final Long id) {
+        return !userRepository.findById(id).isPresent();
+    }
 }

@@ -6,6 +6,7 @@ import com.conatuseus.webservice.user.service.dto.UserSaveRequest;
 import com.conatuseus.webservice.user.service.dto.UserUpdateRequest;
 import com.conatuseus.webservice.user.service.dto.UserUpdateResponse;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -43,5 +44,11 @@ public class UserApiController {
     public ResponseEntity<UserUpdateResponse> updateUser(@PathVariable Long id, @RequestBody @Valid UserUpdateRequest userUpdateRequest) {
         UserUpdateResponse userUpdateResponse = userService.update(id, userUpdateRequest);
         return ResponseEntity.ok(userUpdateResponse);
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity deleteUser(@PathVariable Long id) {
+        userService.deleteById(id);
+        return ResponseEntity.ok().build();
     }
 }
