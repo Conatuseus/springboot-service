@@ -30,12 +30,13 @@ public class UserApiControllerTest {
             .jsonPath("$.email").isEqualTo("testEmail@gmail.com")
             .jsonPath("$.name").isEqualTo("testName")
             .jsonPath("$.password").isEqualTo("testPassword")
+            .jsonPath("$.gender").isEqualTo("M")
             .jsonPath("$.phoneNumber").isEqualTo("01099996384");
     }
 
     @Test
     public void saveUser() {
-        UserSaveRequest userSaveRequest = new UserSaveRequest("conatuseus@gmail.com", "1234", "conas", "01099996384");
+        UserSaveRequest userSaveRequest = new UserSaveRequest("conatuseus@gmail.com", "1234", "M", "conas", "01099996384");
         webTestClient.post()
             .uri("/api/users")
             .body(Mono.just(userSaveRequest), UserSaveRequest.class)
@@ -45,11 +46,13 @@ public class UserApiControllerTest {
 
     @Test
     public void updateUser() {
-        UserUpdateRequest userUpdateRequest = new UserUpdateRequest();
-        userUpdateRequest.setEmail("updateTestEmail@gmail.com");
-        userUpdateRequest.setName("testName");
-        userUpdateRequest.setPassword("changedPassword");
-        userUpdateRequest.setPhoneNumber("01099996384");
+        UserUpdateRequest userUpdateRequest = UserUpdateRequest.builder()
+            .email("updateTestEmail@gmail.com")
+            .name("testName")
+            .gender("M")
+            .password("changedPassword")
+            .phoneNumber("01099996384")
+            .build();
 
         webTestClient.put()
             .uri("/api/users/2")

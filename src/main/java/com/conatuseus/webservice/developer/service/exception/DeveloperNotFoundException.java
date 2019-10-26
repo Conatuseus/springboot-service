@@ -1,4 +1,4 @@
-package com.conatuseus.webservice.developers.service.exception;
+package com.conatuseus.webservice.developer.service.exception;
 
 import com.conatuseus.webservice.exception.ErrorResponseException;
 

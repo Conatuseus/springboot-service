@@ -1,4 +1,4 @@
-package com.conatuseus.webservice.developers.service.dto;
+package com.conatuseus.webservice.developer.service.dto;
 
 import lombok.Builder;
 import lombok.Getter;

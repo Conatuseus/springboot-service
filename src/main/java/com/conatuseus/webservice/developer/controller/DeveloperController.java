@@ -1,8 +1,8 @@
-package com.conatuseus.webservice.developers.controller;
+package com.conatuseus.webservice.developer.controller;
 
-import com.conatuseus.webservice.developers.service.DeveloperService;
-import com.conatuseus.webservice.developers.service.dto.DeveloperRequest;
-import com.conatuseus.webservice.developers.service.dto.DeveloperResponse;
+import com.conatuseus.webservice.developer.service.DeveloperService;
+import com.conatuseus.webservice.developer.service.dto.DeveloperRequest;
+import com.conatuseus.webservice.developer.service.dto.DeveloperResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;

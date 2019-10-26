@@ -1,6 +1,6 @@
-package com.conatuseus.webservice.developers.controller;
+package com.conatuseus.webservice.developer.controller;
 
-import com.conatuseus.webservice.developers.service.dto.DeveloperRequest;
+import com.conatuseus.webservice.developer.service.dto.DeveloperRequest;
 import org.junit.Test;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.runner.RunWith;

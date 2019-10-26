@@ -1,10 +1,9 @@
 package com.conatuseus.webservice.user.controller;
 
 import com.conatuseus.webservice.user.service.UserService;
-import com.conatuseus.webservice.user.service.dto.UserReadResponse;
+import com.conatuseus.webservice.user.service.dto.UserResponse;
 import com.conatuseus.webservice.user.service.dto.UserSaveRequest;
 import com.conatuseus.webservice.user.service.dto.UserUpdateRequest;
-import com.conatuseus.webservice.user.service.dto.UserUpdateResponse;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -29,9 +28,9 @@ public class UserApiController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<UserReadResponse> readUser(@PathVariable Long id) {
-        UserReadResponse userReadResponse = userService.readUser(id);
-        return ResponseEntity.ok(userReadResponse);
+    public ResponseEntity<UserResponse> readUser(@PathVariable Long id) {
+        UserResponse userResponse = userService.readUser(id);
+        return ResponseEntity.ok(userResponse);
     }
 
     @PostMapping
@@ -41,8 +40,8 @@ public class UserApiController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<UserUpdateResponse> updateUser(@PathVariable Long id, @RequestBody @Valid UserUpdateRequest userUpdateRequest) {
-        UserUpdateResponse userUpdateResponse = userService.update(id, userUpdateRequest);
+    public ResponseEntity<UserResponse> updateUser(@PathVariable Long id, @RequestBody @Valid UserUpdateRequest userUpdateRequest) {
+        UserResponse userUpdateResponse = userService.update(id, userUpdateRequest);
         return ResponseEntity.ok(userUpdateResponse);
     }
 

@@ -1,28 +1,14 @@
 package com.conatuseus.webservice.user.domain;
 
-import com.conatuseus.webservice.user.service.dto.UserReadResponse;
-import com.conatuseus.webservice.user.service.dto.UserSaveResponse;
-import com.conatuseus.webservice.user.service.dto.UserUpdateResponse;
+import com.conatuseus.webservice.user.service.dto.UserResponse;
 
 public class UserConverter {
 
-    public static UserSaveResponse toSaveResponse(final User user) {
-        return new UserSaveResponse();
-    }
-
-    public static UserUpdateResponse toUpdateResponse(final User user) {
-        return UserUpdateResponse.builder()
+    public static UserResponse toResponse(final User user) {
+        return UserResponse.builder()
             .email(user.getEmail())
             .password(user.getPassword())
-            .name(user.getName())
-            .phoneNumber(user.getPhoneNumber())
-            .build();
-    }
-
-    public static UserReadResponse toUserReadResponse(final User user) {
-        return UserReadResponse.builder()
-            .email(user.getEmail())
-            .password(user.getPassword())
+            .gender(user.getGender())
             .name(user.getName())
             .phoneNumber(user.getPhoneNumber())
             .build();

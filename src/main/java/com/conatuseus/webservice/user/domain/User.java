@@ -3,7 +3,6 @@ package com.conatuseus.webservice.user.domain;
 import com.conatuseus.webservice.user.service.dto.UserUpdateRequest;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -12,7 +11,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 @Getter
-@Setter
 @Entity
 @NoArgsConstructor
 public class User {
@@ -30,18 +28,23 @@ public class User {
     @Column(nullable = false)
     private String name;
 
+    @Column(nullable = false)
+    private String gender;
+
     @Column(name = "PHONE_NUMBER", nullable = false)
     private String phoneNumber;
 
-    public User(final String email, final String password, final String name, final String phoneNumber) {
+    public User(final String email, final String password, String gender, final String name, final String phoneNumber) {
         this.email = email;
         this.password = password;
+        this.gender = gender;
         this.name = name;
         this.phoneNumber = phoneNumber;
     }
 
     public User update(final UserUpdateRequest userUpdateRequest) {
         this.password = userUpdateRequest.getPassword();
+        this.gender = userUpdateRequest.getGender();
         this.phoneNumber = userUpdateRequest.getPhoneNumber();
         return this;
     }

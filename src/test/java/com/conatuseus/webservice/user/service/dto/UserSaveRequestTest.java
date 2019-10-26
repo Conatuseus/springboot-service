@@ -11,7 +11,6 @@ import javax.validation.ValidatorFactory;
 import java.util.Set;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 
 
 public class UserSaveRequestTest {
@@ -22,80 +21,129 @@ public class UserSaveRequestTest {
 
     @BeforeEach
     void setUp() {
-        user = new UserSaveRequest();
-        user.setEmail("conatuseus@gmail.com");
-        user.setName("conatuseus");
-        user.setPassword("conas");
-        user.setPhoneNumber("01099996384");
-
+        user = UserSaveRequest.builder()
+            .email("conatuseus@gmail.com")
+            .password("1234")
+            .gender("M")
+            .name("conas")
+            .phoneNumber("01099996384")
+            .build();
         factory = Validation.buildDefaultValidatorFactory();
         validator = factory.getValidator();
     }
 
     @Test
-    void set_valid_Email() {
-        assertDoesNotThrow(() -> user.setEmail("abc@gmail.com"));
-    }
-
-    @Test
     @DisplayName("blank email 검사")
-    void set_blank_Email() {
-        user.setEmail("");
-        checkUserValidateMessage("이메일을 입력해 주세요.");
+    void blank_Email() {
+        UserSaveRequest blankEmailUser = UserSaveRequest.builder()
+            .email("")
+            .password("1234")
+            .gender("M")
+            .name("conas")
+            .phoneNumber("01099996384")
+            .build();
+        checkUserValidateMessage(blankEmailUser, "이메일을 입력해 주세요.");
     }
 
     @Test
     @DisplayName("올바르지 않은 이메일 양식 검사")
-    void set_invalid_Email() {
-        user.setEmail("helloWorld!");
-        checkUserValidateMessage("이메일 양식을 지켜주세요.");
+    void invalid_Email() {
+        UserSaveRequest invalidEmailUser = UserSaveRequest.builder()
+            .email("helloWorld!")
+            .password("1234")
+            .gender("M")
+            .name("conas")
+            .phoneNumber("01099996384")
+            .build();
+        checkUserValidateMessage(invalidEmailUser, "이메일 양식을 지켜주세요.");
     }
 
     @Test
-    void setPassword() {
-        assertDoesNotThrow(() -> user.setPassword("1234"));
+    void blank_Password() {
+        UserSaveRequest blankPasswordUser = UserSaveRequest.builder()
+            .email("conatuseus@gmail.com")
+            .password("")
+            .gender("M")
+            .name("conas")
+            .phoneNumber("01099996384")
+            .build();
+        checkUserValidateMessage(blankPasswordUser, "비밀번호를 입력해 주세요.");
     }
 
     @Test
-    void set_blank_Password() {
-        user.setPassword("");
-        checkUserValidateMessage("비밀번호를 입력해 주세요.");
+    void blank_gender() {
+        UserSaveRequest blankGender = UserSaveRequest.builder()
+            .email("conatuseus@gmail.com")
+            .password("1234")
+            .gender("")
+            .name("conas")
+            .phoneNumber("01099996384")
+            .build();
+
+        checkUserValidateMessage(blankGender, "성별을 입력해 주세요.");
     }
 
     @Test
-    void setName() {
-        assertDoesNotThrow(() -> user.setName("coonas"));
+    void invalid_gender() {
+        UserSaveRequest invalidGender = UserSaveRequest.builder()
+            .email("conatuseus@gmail.com")
+            .password("1234")
+            .gender("K")
+            .name("conas")
+            .phoneNumber("01099996384")
+            .build();
+
+        checkUserValidateMessage(invalidGender, "남자 또는 여자만 선택 가능합니다.");
     }
 
     @Test
-    void set_blank_Name() {
-        user.setName("");
-        checkUserValidateMessage("이름을 입력해 주세요.");
+    void blank_Name() {
+        UserSaveRequest blankNameUser = UserSaveRequest.builder()
+            .email("conatuseus@gmail.com")
+            .password("1234")
+            .gender("M")
+            .name("")
+            .phoneNumber("01099996384")
+            .build();
+        checkUserValidateMessage(blankNameUser, "이름을 입력해 주세요.");
     }
 
     @Test
-    void setPhoneNumber() {
-        assertDoesNotThrow(() -> user.setPhoneNumber("01099996383"));
-    }
-
-    @Test
-    void set_blank_PhoneNumber() {
-        user.setPhoneNumber("");
-        checkUserValidateMessage("휴대폰 번호를 입력해 주세요.");
+    void blank_PhoneNumber() {
+        UserSaveRequest blankPhoneNumberUser = UserSaveRequest.builder()
+            .email("conatuseus@gmail.com")
+            .password("1234")
+            .gender("M")
+            .name("conas")
+            .phoneNumber("")
+            .build();
+        checkUserValidateMessage(blankPhoneNumberUser, "휴대폰 번호를 입력해 주세요.");
     }
 
     @Test
     @DisplayName("휴대폰 번호가 11자리가 안되는 경우")
-    void set_invalid_PhoneNumber() {
-        user.setPhoneNumber("0101234");
-        checkUserValidateMessage("11자리의 숫자만 입력가능합니다.");
+    void invalid_PhoneNumber() {
+        UserSaveRequest invalidPhoneNumberUser = UserSaveRequest.builder()
+            .email("conatuseus@gmail.com")
+            .password("1234")
+            .gender("M")
+            .name("conas")
+            .phoneNumber("0101234")
+            .build();
+        checkUserValidateMessage(invalidPhoneNumberUser, "11자리의 숫자만 입력가능합니다.");
     }
 
     @Test
     @DisplayName("휴대폰 번호가 11자리지만 문자가 포함된 경우")
-    void set_not_number_PhoneNumber() {
-        user.setPhoneNumber("0101234567a");
-        checkUserValidateMessage("11자리의 숫자만 입력가능합니다.");
+    void not_number_PhoneNumber() {
+        UserSaveRequest invalidPhoneNumberUser = UserSaveRequest.builder()
+            .email("conatuseus@gmail.com")
+            .password("1234")
+            .gender("M")
+            .name("conas")
+            .phoneNumber("0109999638u")
+            .build();
+        checkUserValidateMessage(invalidPhoneNumberUser, "11자리의 숫자만 입력가능합니다.");
     }
 
     @Test
@@ -105,12 +153,17 @@ public class UserSaveRequestTest {
 
     @Test
     void getPassword() {
-        assertThat(user.getPassword()).isEqualTo("conas");
+        assertThat(user.getPassword()).isEqualTo("1234");
+    }
+
+    @Test
+    void getGender() {
+        assertThat(user.getGender()).isEqualTo("M");
     }
 
     @Test
     void getName() {
-        assertThat(user.getName()).isEqualTo("conatuseus");
+        assertThat(user.getName()).isEqualTo("conas");
     }
 
     @Test
@@ -118,7 +171,7 @@ public class UserSaveRequestTest {
         assertThat(user.getPhoneNumber()).isEqualTo("01099996384");
     }
 
-    private void checkUserValidateMessage(String message) {
+    private void checkUserValidateMessage(UserSaveRequest user, String message) {
         Set<ConstraintViolation<UserSaveRequest>> constraintViolations = validator.validate(user);
         assertThat(constraintViolations)
             .extracting(ConstraintViolation::getMessage)

@@ -1,6 +1,6 @@
-package com.conatuseus.webservice.developers.domain;
+package com.conatuseus.webservice.developer.domain;
 
-import com.conatuseus.webservice.developers.service.dto.DeveloperResponse;
+import com.conatuseus.webservice.developer.service.dto.DeveloperResponse;
 
 public class DeveloperConverter {
 
